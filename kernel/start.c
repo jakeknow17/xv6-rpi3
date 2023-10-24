@@ -7,11 +7,10 @@
 __attribute__ ((aligned (16))) char stack0[4096 * NCPU];
 // char stack0[4096 * NCPU];
 
-int start()
+void start()
 {
     while(1)
     {
         // do nothing
     }
-    return 0;
 }
