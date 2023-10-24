@@ -4,7 +4,8 @@ U=user
 TOOLPREFIX=aarch64-none-elf-
 
 SRCS = \
-	$K/start.o
+	$K/start.c \
+	$K/uart.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -19,7 +20,7 @@ LDFLAGS = -z max-page-size=4096
 all: clean kernel8.img
 	
 $K/entry.o: $K/entry.S
-	 $(TOOLPREFIX)as -c $K/entry.S -o $K/entry.o
+	 $(TOOLPREFIX)gcc $(CFLAGS) -c $K/entry.S -o $K/entry.o
 
 $K/%.o: $K/%.c
 	$(TOOLPREFIX)gcc $(CFLAGS) -c $< -o $@
