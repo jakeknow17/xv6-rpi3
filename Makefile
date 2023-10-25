@@ -34,3 +34,6 @@ clean:
 
 qemu: kernel8.img
 	qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial null -serial stdio
+
+qemu-gdb: kernel8.img
+	qemu-system-aarch64 -M raspi3b -s -S -kernel kernel8.img -serial null -serial stdio
