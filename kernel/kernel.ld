@@ -1,6 +1,7 @@
 SECTIONS
 {
     . = 0x80000;
+
     .text : {
         KEEP(*(.text.boot)) *(.text .text.* .gnu.linkonce.t*)
         # . = ALIGN(0x1000);
@@ -26,7 +27,8 @@ SECTIONS
         *(.bss .bss.*)
         *(COMMON)
     }
-    _end = .;
 
-    PROVIDE(end = .);
+    . = ALIGN(4096);
+    PROVIDE(stack0 = .);
+    PROVIDE(end = . + 0x4000);
 }
