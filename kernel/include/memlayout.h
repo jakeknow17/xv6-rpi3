@@ -62,3 +62,23 @@
 #define GPPUD           ((volatile unsigned int*)(MMIO_BASE+0x00200094L)) // GPIO Pin Pull-up/down Enable
 #define GPPUDCLK0       ((volatile unsigned int*)(MMIO_BASE+0x00200098L)) // GPIO Pin Pull-up/down Enable Clock 0
 #define GPPUDCLK1       ((volatile unsigned int*)(MMIO_BASE+0x0020009CL)) // GPIO Pin Pull-up/down Enable Clock 1
+
+// Found in Section 13 - UART
+#define PL011_DR        ((volatile unsigned int*)(MMIO_BASE+0x00201000)) // Data Register
+#define PL011_RSRECR    ((volatile unsigned int*)(MMIO_BASE+0x00201040)) // RSRECR
+#define PL011_FR        ((volatile unsigned int*)(MMIO_BASE+0x00201018)) // Flag register
+#define PL011_ILPR      ((volatile unsigned int*)(MMIO_BASE+0x00201020)) // not in use
+#define PL011_IBRD      ((volatile unsigned int*)(MMIO_BASE+0x00201024)) // Integer Baud rate divisor
+#define PL011_FBRD      ((volatile unsigned int*)(MMIO_BASE+0x00201028)) // Fractional Baud rate divisor
+#define PL011_LCRH      ((volatile unsigned int*)(MMIO_BASE+0x0020102c)) // Line Control register
+#define PL011_CR        ((volatile unsigned int*)(MMIO_BASE+0x00201030)) // Control register
+#define PL011_IFLS      ((volatile unsigned int*)(MMIO_BASE+0x00201034)) // Interupt FIFO Level Select Register
+#define PL011_IMSC      ((volatile unsigned int*)(MMIO_BASE+0x00201038)) // Interupt Mask Set Clear Register
+#define PL011_RIS       ((volatile unsigned int*)(MMIO_BASE+0x0020103c)) // Raw Interupt Status Register
+#define PL011_MIS       ((volatile unsigned int*)(MMIO_BASE+0x00201040)) // Masked Interupt Status Register
+#define PL011_ICR       ((volatile unsigned int*)(MMIO_BASE+0x00201044)) // Interupt Clear Register
+#define PL011_DMACR     ((volatile unsigned int*)(MMIO_BASE+0x00201048)) // DMA Control Register
+#define PL011_ITCR      ((volatile unsigned int*)(MMIO_BASE+0x00201080)) // Test Control register
+#define PL011_ITIP      ((volatile unsigned int*)(MMIO_BASE+0x00201084)) // Integration test input reg
+#define PL011_ITOP      ((volatile unsigned int*)(MMIO_BASE+0x00201088)) // Integration test output reg
+#define PL011_TDR       ((volatile unsigned int*)(MMIO_BASE+0x0020108c)) // Test Data reg
