@@ -14,8 +14,13 @@ void start()
     if (!(r_mpidr_el1() & 0x3))
     {
         uart_init();
+
         uart_puts("Hello World!\n");
         uart_puts("Second time!\n");
+
+        // echo
+        while(1)
+            uart_send(uart_getc());
     }
     else
     {
