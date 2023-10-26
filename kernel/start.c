@@ -8,18 +8,17 @@
 
 void start()
 {
-    if (!(r_mpidr_el1() & 0x3))
+    if (!(r_mpidr_el1() & 0x3)) // Core 0
     {
         uart_init();
 
         uart_puts("Hello World!\n");
-        uart_puts("Second time!\n");
-        uart_hex_u64(get_board_serial());
+
         // echo
         while(1)
-            uart_send(uart_getc());
+            uart_sendc(uart_getc());
     }
-    else
+    else // Other cores
     {
         return;
     }
