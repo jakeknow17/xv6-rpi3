@@ -6,6 +6,7 @@ TOOLPREFIX=aarch64-none-elf-
 SRCS = \
 	$K/start.c \
 	$K/uart.c \
+	$K/mailbox.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -33,7 +34,7 @@ clean:
 	rm -f kernel8.elf kernel8.img $K/*.o $K/*.d  >/dev/null 2>/dev/null
 
 qemu: kernel8.img
-	qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial null -serial stdio
+	qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 
 qemu-gdb: kernel8.img
-	qemu-system-aarch64 -M raspi3b -s -S -kernel kernel8.img -serial null -serial stdio
+	qemu-system-aarch64 -M raspi3b -s -S -kernel kernel8.img -serial stdio
