@@ -30,7 +30,7 @@ int write_mailbox(uint8 channel, uint32 *data)
     uint32 r = (uint32)(((uint64)data & ~0xF) | (channel & 0xF));
 
     // Wait until the mailbox is empty
-	while (*MBOX1_STATUS & MBOX_FULL) { nop(); } // TODO: Check if this should be MBOX1_STATUS or MBOX0_STATUS
+	while (*MBOX1_STATUS & MBOX_FULL) { nop(); }
 
 	// Write the value to the requested channel
 	*MBOX1_WRITE = r;
@@ -45,8 +45,6 @@ int write_mailbox(uint8 channel, uint32 *data)
         if ((uint8)(*MBOX0_READ & 0xF) == channel)
             return data[1] == MBOX_SUCCESS;
     }
-
-    return 0; // Control should never reach here
 }
 
 // Gets the board's unique serial number with a mailbox call.
