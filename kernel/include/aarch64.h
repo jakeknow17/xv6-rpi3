@@ -8,3 +8,9 @@ r_mpidr_el1()
     asm volatile ("mrs %0, mpidr_el1" : "=r" (x));
     return x;
 }
+
+static inline void
+nop()
+{
+    asm volatile ("nop");
+}
