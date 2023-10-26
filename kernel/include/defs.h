@@ -7,3 +7,5 @@ void    uart_init(void);
 void    uart_send(unsigned int);
 char    uart_getc(void);
 void    uart_puts(char *);
+void    uart_hex_u32(unsigned int);
+void    uart_hex_u64(unsigned long);
