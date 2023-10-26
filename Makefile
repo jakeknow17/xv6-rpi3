@@ -12,7 +12,7 @@ OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Werror -O -fno-omit-frame-pointer -ggdb -gdwarf-2
 CFLAGS += -MD
 CFLAGS += -ffreestanding -fno-common -nostdinc -nostdlib -nostartfiles
-CFLAGS += -I.
+CFLAGS += -I. -I kernel/include
 CFLAGS += -fno-stack-protector # May need to conditionally add this
 
 LDFLAGS = -z max-page-size=4096
