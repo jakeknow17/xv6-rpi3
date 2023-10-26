@@ -6,26 +6,15 @@ void uart_init()
 {
     register unsigned int r;
 
-    /* initialize UART */
-    *PL011_CR = 0;         // turn off UART0
+    *PL011_CR = 0;              // turn off UART0
 
-    /* set up clock for consistent divisor values */
-    __attribute__ ((aligned (16))) uint32 mbox[9];
-    mbox[0] = 9*4;
-    mbox[1] = MBOX_REQUEST;
-    mbox[2] = MBOX_CLK_SET_CLK_RATE; // set clock rate
-    mbox[3] = 12;
-    mbox[4] = 8;
-    mbox[5] = 2;           // UART clock
-    mbox[6] = 4000000;     // 4Mhz
-    mbox[7] = 0;           // clear turbo
-    mbox[8] = MBOX_TAG_LAST;
-    write_mailbox(MBOX_CH_PROP, mbox);
+    // Set up clock for consistent divisor values
+    set_device_clock_rate(MBOX_CLK_ID_UART, 4000000, 1);
 
-    /* map UART0 to GPIO pins */
-    r=*GPFSEL1;
-    r&=~((7<<12)|(7<<15)); // gpio14, gpio15
-    r|=(4<<12)|(4<<15);    // alt0
+    // Map UART0 to GPIO pins
+    r = *GPFSEL1;               // GPFSEL1 controls function select for GPIO 10-19
+    r &= ~((7<<12)|(7<<15));    // Clear GPIO14 (bits 14-12) and GPIO15 (bits 17-15)
+    r |= (4<<12)|(4<<15);       // Set GPIO14 and GPIO15 to ALT0 (bit pattern 100)
     *GPFSEL1 = r;
     *GPPUD = 0;            // enable pins 14 and 15
     r=150; while(r--) { asm volatile("nop"); }

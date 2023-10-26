@@ -65,3 +65,4 @@
 
 int write_mailbox(unsigned char, unsigned int *);
 unsigned long get_board_serial(void);
+unsigned int set_device_clock_rate(unsigned int clock_id, unsigned int clock_rate, unsigned int skip_setting_turbo);

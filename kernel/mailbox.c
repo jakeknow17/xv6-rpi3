@@ -53,12 +53,12 @@ int write_mailbox(uint8 channel, uint32 *data)
 uint64 get_board_serial()
 {
     __attribute__ ((aligned (16))) uint32 mbox[8];
-    mbox[0] = 8*4;                      // length of the message
+    mbox[0] = 8*4;                      // length of the full message
     mbox[1] = MBOX_REQUEST;             // this is a request message
     mbox[2] = MBOX_HW_GET_BRD_SERIAL;   // get serial number command
-    mbox[3] = 8;                        // buffer size
+    mbox[3] = 0;                        // request size
     mbox[4] = 8;                        // expected response size
-    mbox[5] = 0;                        // clear output buffer
+    mbox[5] = 0;                        // clear output buffer for u64
     mbox[6] = 0;
     mbox[7] = MBOX_TAG_LAST;            // final tag in message
 
@@ -69,5 +69,29 @@ uint64 get_board_serial()
         res |= ((uint64)mbox[6]) << 32;
         return res;
     }
+    else
+        res = 1; // qemu always uses a serial number of 0, so set this to 1 to recognize error.
     return res;
+}
+
+// Sets the clock rate for a device clock with a mailbox call.
+// skip_setting_turbo can be 0 or 1. 1 asks the system to ignore any turbo settings,
+// and 0 asks the system to consider turbo settings if configured.
+// Returns the new clock rate, or 0 for failure.
+uint32 set_device_clock_rate(uint32 clock_id, uint32 clock_rate, uint32 skip_setting_turbo)
+{
+    __attribute__ ((aligned (16))) uint32 mbox[8];
+    mbox[0] = 9*4;                   // length of the message
+    mbox[1] = MBOX_REQUEST;          // this is a request message
+    mbox[2] = MBOX_CLK_SET_CLK_RATE; // set clock rate command
+    mbox[3] = 12;                    // request size
+    mbox[4] = 8;                     // expected response size
+    mbox[5] = clock_id;
+    mbox[6] = clock_rate;
+    mbox[7] = skip_setting_turbo;
+    mbox[8] = MBOX_TAG_LAST;         // final tag in message
+    
+    if (write_mailbox(MBOX_CH_PROP, mbox))
+        return mbox[6];
+    return 0;
 }
