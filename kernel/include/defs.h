@@ -4,10 +4,10 @@
 #include "types.h"
 
 // delay.c
-void delay_cycles(uint32);
-void delay_msec(uint32);
-void delay_msec_st(uint32 n);
-uint64 get_system_timer(void);
+void    delay_cycles(uint32);
+void    delay_msec(uint32);
+void    delay_msec_st(uint32 n);
+uint64  get_system_timer(void);
 
 // uart.c
 void    uart_init(void);
