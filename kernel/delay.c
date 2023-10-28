@@ -1,9 +1,6 @@
 #include "memlayout.h"
 #include "types.h"
 
-#define SYSTMR_LO        ((volatile unsigned int*)(MMIO_BASE+0x00003004))
-#define SYSTMR_HI        ((volatile unsigned int*)(MMIO_BASE+0x00003008))
-
 // Wait N CPU cycles (ARM CPU only)
 void delay_cycles(uint32 n)
 {
