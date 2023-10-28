@@ -8,7 +8,6 @@ C_SRCS = \
 	$K/uart.c \
 	$K/mailbox.c \
 	$K/delay.c \
-	$K/power.c \
 
 ASM_SRCS = \
 	$K/entry.S \
