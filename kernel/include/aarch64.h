@@ -1,5 +1,7 @@
-#include "types.h"
+#ifndef AARCH64_H
+#define AARCH64_H
 
+#include "types.h"
 
 static inline uint64
 r_mpidr_el1()
@@ -14,3 +16,5 @@ nop()
 {
     asm volatile ("nop");
 }
+
+#endif /* AARCH64_H */

@@ -1,3 +1,6 @@
+#ifndef MEMLAYOUT_H
+#define MEMLAYOUT_H
+
 // Physical memory layout
 
 // Addresses found in BCM2837 ARM Peripherals Document
@@ -63,6 +66,15 @@
 #define GPPUDCLK0       ((volatile unsigned int*)(MMIO_BASE+0x00200098L)) // GPIO Pin Pull-up/down Enable Clock 0
 #define GPPUDCLK1       ((volatile unsigned int*)(MMIO_BASE+0x0020009CL)) // GPIO Pin Pull-up/down Enable Clock 1
 
+// Found in Section 12 - System Timer
+#define SYS_TIMER_CS    ((volatile unsigned int*)(MMIO_BASE+0x00003000)) // System Timer Control/Status
+#define SYS_TIMER_CLO   ((volatile unsigned int*)(MMIO_BASE+0x00003004)) // System Timer Counter Lower 32 bits
+#define SYS_TIMER_CHI   ((volatile unsigned int*)(MMIO_BASE+0x00003008)) // System Timer Counter Higher 32 bits
+#define SYS_TIMER_C0    ((volatile unsigned int*)(MMIO_BASE+0x0000300c)) // System Timer Compare 0
+#define SYS_TIMER_C1    ((volatile unsigned int*)(MMIO_BASE+0x00003010)) // System Timer Compare 1
+#define SYS_TIMER_C2    ((volatile unsigned int*)(MMIO_BASE+0x00003014)) // System Timer Compare 2
+#define SYS_TIMER_C3    ((volatile unsigned int*)(MMIO_BASE+0x00003018)) // System Timer Compare 3
+
 // Found in Section 13 - UART
 #define PL011_DR        ((volatile unsigned int*)(MMIO_BASE+0x00201000)) // Data Register
 #define PL011_RSRECR    ((volatile unsigned int*)(MMIO_BASE+0x00201040)) // RSRECR
@@ -82,3 +94,5 @@
 #define PL011_ITIP      ((volatile unsigned int*)(MMIO_BASE+0x00201084)) // Integration test input reg
 #define PL011_ITOP      ((volatile unsigned int*)(MMIO_BASE+0x00201088)) // Integration test output reg
 #define PL011_TDR       ((volatile unsigned int*)(MMIO_BASE+0x0020108c)) // Test Data reg
+
+#endif /* MEMLAYOUT_H */

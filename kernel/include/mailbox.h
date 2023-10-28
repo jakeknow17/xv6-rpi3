@@ -1,3 +1,8 @@
+#ifndef MAILBOX_H
+#define MAILBOX_H
+
+#include "types.h"
+
 // Mailbox channels
 #define MBOX_CH_POWER   0 // power management
 #define MBOX_CH_FB      1 // framebuffer
@@ -63,6 +68,8 @@
 #define MBOX_REQUEST            0x0 // Code to tell a mailbox to process a request
 #define MBOX_TAG_LAST           0x0 // Last value in a message buffer
 
-int write_mailbox(unsigned char, unsigned int *);
-unsigned long get_board_serial(void);
-unsigned int set_device_clock_rate(unsigned int clock_id, unsigned int clock_rate, unsigned int skip_setting_turbo);
+int write_mailbox(uint8, uint32 *);
+uint64 get_board_serial(void);
+uint32 set_device_clock_rate(uint32 clock_id, uint32 clock_rate, uint32 skip_setting_turbo);
+
+#endif /* MAILBOX_H */
