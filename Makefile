@@ -7,10 +7,11 @@ C_SRCS = \
 	$K/start.c \
 	$K/uart.c \
 	$K/mailbox.c \
+	$K/delay.c \
+	$K/power.c \
 
 ASM_SRCS = \
 	$K/entry.S \
-	$K/delay.S
 
 C_OBJS = $(C_SRCS:.c=.o)
 ASM_OBJS = $(ASM_SRCS:.S=.o)
@@ -36,10 +37,15 @@ kernel8.img: $(ASM_OBJS) $(C_OBJS)
 	$(TOOLPREFIX)objcopy -O binary kernel8.elf kernel8.img
 
 clean:
-	rm -f kernel8.elf kernel8.img $K/*.o $K/*.d  >/dev/null 2>/dev/null
+	rm -f kernel8.elf kernel8.img test.dd $K/*.o $K/*.d  >/dev/null 2>/dev/null
 
-qemu: kernel8.img
-	qemu-system-aarch64 -M raspi3b -kernel kernel8.img -nographic
+test.dd:
+	dd if=/dev/zero of=test.dd bs=1M count=1024
 
-qemu-gdb: kernel8.img
-	qemu-system-aarch64 -M raspi3b -s -S -kernel kernel8.img -nographic
+QEMU_OPTS = -M raspi3b -kernel kernel8.img -drive file=test.dd,if=sd,format=raw -nographic
+
+qemu: kernel8.img test.dd
+	qemu-system-aarch64 $(QEMU_OPTS)
+
+qemu-gdb: kernel8.img test.dd
+	qemu-system-aarch64 -s -S $(QEMU_OPTS)
