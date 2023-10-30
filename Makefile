@@ -40,7 +40,8 @@ clean:
 	rm -f kernel8.elf kernel8.img test.dd $K/*.o $K/*.d  >/dev/null 2>/dev/null
 
 test.dd:
-	dd if=/dev/zero bs=1M count=1024 | tr '\0' '\1' > test.dd
+	dd if=/dev/zero of=test.dd bs=1M count=1024
+	mformat -i test.dd -F
 
 QEMU_OPTS = -M raspi3b -kernel kernel8.img -drive file=test.dd,if=sd,format=raw -nographic
 

@@ -41,6 +41,9 @@ void start()
                 // dump it to serial console
                 uart_dump(&end);
         }
+
+        uart_puts("Finished dumping first sector of SD card.\n");
+
     }
 
         // echo
