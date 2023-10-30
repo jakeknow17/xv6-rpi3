@@ -16,5 +16,6 @@ char    uart_getc(void);
 void    uart_puts(char *);
 void    uart_hex_u32(uint32);
 void    uart_hex_u64(uint64);
+void    uart_dump(void *);
 
 #endif /* DEFS_H */

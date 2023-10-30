@@ -3,6 +3,9 @@
 #include "aarch64.h"
 #include "defs.h"
 #include "mailbox.h"
+#include "sd.h"
+
+extern uint64 end;
 
 // void main();
 
@@ -30,6 +33,15 @@ void start()
             delay_msec_st(1000000);
             uart_puts("OK\n");
         }
+
+        // initialize EMMC and detect SD card type
+        if(sd_init()==SD_OK) {
+        // read the master boot record after our bss segment
+            if(sd_readblock(0,(void *)(&end),1)) {
+                // dump it to serial console
+                uart_dump(&end);
+        }
+    }
 
         // echo
         while(1)
