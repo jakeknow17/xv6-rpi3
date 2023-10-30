@@ -90,3 +90,29 @@ void uart_hex_u32(unsigned int d) {
 void uart_hex_u64(unsigned long d) {
     uart_hex(d, 60); // 64 - 4
 }
+
+/**
+ * Dump memory
+ */
+void uart_dump(void *ptr)
+{
+    unsigned long a,b,d;
+    unsigned char c;
+    for(a=(unsigned long)ptr;a<(unsigned long)ptr+512;a+=16) {
+        uart_hex_u32(a); uart_puts(": ");
+        for(b=0;b<16;b++) {
+            c=*((unsigned char*)(a+b));
+            d=(unsigned int)c;d>>=4;d&=0xF;d+=d>9?0x37:0x30;uart_sendc(d);
+            d=(unsigned int)c;d&=0xF;d+=d>9?0x37:0x30;uart_sendc(d);
+            uart_sendc(' ');
+            if(b%4==3)
+                uart_sendc(' ');
+        }
+        for(b=0;b<16;b++) {
+            c=*((unsigned char*)(a+b));
+            uart_sendc(c<32||c>=127?'.':c);
+        }
+        uart_sendc('\r');
+        uart_sendc('\n');
+    }
+}
