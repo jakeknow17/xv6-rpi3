@@ -15,7 +15,9 @@ void start()
     {
         uart_init();
 
-        uart_puts("Hello World!\n");
+        uart_puts("Hello World!\nCurrent core: ");
+        uart_hex_u64(r_sctlr_el1());
+        uart_puts("\n");
 
         uart_puts("Waiting 1000000 CPU cycles (ARM CPU): ");
         delay_cycles(1000000);
